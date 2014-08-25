@@ -44,8 +44,10 @@ struct RRValidator
     RRValidator() : doc(NULL) {}
 
     void load(const std::string& src) {
-        string sbml = SBMLReader::read(src);
+        string filename;
+        string sbml = SBMLReader::read(src, filename);
         doc =  readSBMLFromString (sbml.c_str());
+        doc->setLocationURI(filename);
     }
 
     ~RRValidator() {

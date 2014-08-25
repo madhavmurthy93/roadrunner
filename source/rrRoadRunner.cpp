@@ -832,7 +832,8 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
 
     get_self();
 
-    impl->mCurrentSBML = SBMLReader::read(uriOrSbml);
+    string filename;
+    impl->mCurrentSBML = SBMLReader::read(uriOrSbml, filename);
 
     //clear temp folder of roadrunner generated files, only if roadRunner instance == 1
     Log(lDebug)<<"Loading SBML into simulator";
@@ -854,7 +855,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
         {
             impl->conservedMoietyAnalysis = options->modelGeneratorOpt
                     & LoadSBMLOptions::CONSERVED_MOIETIES;
-            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt, filename);
         }
         else
         {
@@ -862,7 +863,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
             opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
                     opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
                     opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
-            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt, filename);
         }
     } catch (std::exception&) {
         string errors = validateSBML(impl->mCurrentSBML);
