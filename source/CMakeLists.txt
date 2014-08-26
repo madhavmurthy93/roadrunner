@@ -79,6 +79,7 @@ set(rrSources
     rrSparse.cpp
     rrSBMLModelSimulation.cpp
     rrSBMLReader.cpp
+    SBMLValidator.cpp
     Variant.cpp
     conservation/ConservationExtension.cpp
     conservation/ConservationDocumentPlugin.cpp
@@ -113,6 +114,7 @@ set(rrSources
     rrSparse.h
     rrSBMLModelSimulation.h
     rrSBMLReader.h
+    SBMLValidator.h
     Variant.h
     conservation/ConservationExtension.h
     conservation/ConservationDocumentPlugin.h
