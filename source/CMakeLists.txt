@@ -129,6 +129,12 @@ if(BUILD_LLVM)
         )
 endif(BUILD_LLVM)
 
+if(BUILD_EPIPHANY)
+    set(rrSources
+        ${rrSources}
+        epiphany/EpipExecutableModel.cpp
+        )
+endif(BUILD_EPIPHANY)
 
 if(BUILD_LEGACY_C)
     set(rrSources
