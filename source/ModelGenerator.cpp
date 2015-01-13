@@ -8,6 +8,10 @@
 #include "ModelGenerator.h"
 
 
+#if defined(BUILD_EPIPHANY)
+#include "epiphany/EpipModelGenerator.h"
+#endif
+
 #if defined(BUILD_LLVM)
 #include "llvm/LLVMModelGenerator.h"
 #endif
@@ -44,6 +48,17 @@ ModelGenerator* ModelGenerator::New(const string& compiler, const string& tempFo
 {
     Log(Logger::LOG_INFORMATION) << "createing model generator, compiler: \"" << compiler << "\"";
 
+    string ucomp = compiler;
+    std::transform(ucomp.begin(), ucomp.end(),ucomp.begin(), ::toupper);
+
+#if defined(BUILD_EPIPHANY)
+    if (ucomp == "EPIPHANY")
+    {
+        Log(Logger::LOG_INFORMATION) << "Creating Epiphany based model generator.";
+        return new rrepip::EpipModelGenerator(compiler);
+    }
+# endif
+
 #if defined(BUILD_LLVM) && !defined(BUILD_LEGACY_C)
 
     Log(Logger::LOG_INFORMATION) << "Creating LLVM based model generator.";
@@ -52,8 +67,6 @@ ModelGenerator* ModelGenerator::New(const string& compiler, const string& tempFo
 #endif
 
 #if defined(BUILD_LLVM) && defined(BUILD_LEGACY_C)
-    string ucomp = compiler;
-    std::transform(ucomp.begin(), ucomp.end(),ucomp.begin(), ::toupper);
 
     if (ucomp == "LLVM")
     {

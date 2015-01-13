@@ -35,6 +35,9 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
 option (BUILD_EPIPHANY "Build Epiphany back end" ON)
+if(BUILD_EPIPHANY)
+    add_definitions(-DBUILD_EPIPHANY)
+endif()
 
 # determine if LLVM was installed using CMake
 if(EXISTS ${LLVM_INSTALL_PREFIX}/share/llvm/cmake)

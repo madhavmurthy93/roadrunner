@@ -133,6 +133,7 @@ if(BUILD_EPIPHANY)
     set(rrSources
         ${rrSources}
         epiphany/EpipExecutableModel.cpp
+        epiphany/EpipModelGenerator.cpp
         )
 endif(BUILD_EPIPHANY)
 
